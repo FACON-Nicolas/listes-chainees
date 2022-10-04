@@ -1,6 +1,6 @@
 package org.example.listes;
 
-public class Liste<T> {
+public class Liste<T> implements IListe<T> {
 
     private Noeud<T> head;
 
@@ -89,21 +89,34 @@ public class Liste<T> {
         return true;
     }
 
-    public int getLastOccurence(T elt) {
-        int index = -1;
-        if (isEmpty()) return -1;
-        Noeud n = head;
+    public Noeud<T> getLastOccurence(T elt) {
+        if (isEmpty()) return null;
+        Noeud<T> n = head;
+        Noeud<T> eltRecherche = null;
         int i = 0;
         while (n != null) {
-            if (n.getElt().equals(elt)) index = i;
-            i++;
+            if (n.getElt().equals(elt)) eltRecherche = n;
             n = n.getNext();
-        } return index;
+        } return eltRecherche;
     }
 
     public void removeAllOccurence(T elt) {
-        while (getLastOccurence(elt) != -1)
-            removeFirstOcc(elt);
+        if (!isEmpty()) {
+            while (!isEmpty() && getHead().getElt().equals(elt)) {
+                head = head.getNext();
+                size--;
+            }
+            Noeud<T> n = head;
+            Noeud<T> precedent = null;
+            while (n != null) {
+                if (n.getElt().equals(elt)) {
+                    precedent.setNext(n.getNext());
+                    size--;
+                }
+                precedent = n;
+                n = n.getNext();
+            }
+        }
     }
 
     @Override

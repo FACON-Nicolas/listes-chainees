@@ -75,19 +75,19 @@ public class ListeTest {
         ints.addInQueue(9);
         ints.addInQueue(10);
         ints.addInQueue(1);
-        assertEquals(-1, ints.getLastOccurence(11));
-        assertEquals(10, ints.getLastOccurence(1));
-        assertEquals(2, ints.getLastOccurence(3));
+        assertNull(ints.getLastOccurence(-1));
+        assertEquals(3, ints.getLastOccurence(3).getElt());
     }
 
     @Test
     void removeAllOccTest() {
         ints.addInQueue(1);
-        ints.addInQueue(1);
+        ints.addInQueue(7);
         ints.addInQueue(2);
         ints.addInQueue(1);
+        ints.addInQueue(3);
         ints.removeAllOccurence(1);
-        assertEquals(" 2", ints.toString());
+        assertEquals(" 7 2 3", ints.toString());
     }
 
     @Test
